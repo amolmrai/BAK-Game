@@ -96,6 +96,7 @@
 
 	    //diplay picture
 	    function nextLevel() {
+
 	        if (myScore == 0) {
 	            object = 'square';
 	            color = 'blue';
@@ -113,6 +114,7 @@
 	            $('#gamepage').hide();
 	            $('#divscoreboard').show();
 	        }
+	        $('#answerHistory').empty();
 	    }
 
 	    nextLevel();
