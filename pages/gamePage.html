@@ -13,12 +13,10 @@
 
 		<div id="scores">
 			<div id ="playerscore">
-				<h4>Player Score</h4>
-				<span id="myscore"></span>
+				<h4>Player Score: <span id="myscore"></span></h4>
 			</div>
 			<div id = "divhighscore">
-				<h4>High Score</h4>
-				<span id="spanhighscore"></span>
+				<h4>High Score <span id="spanhighscore">'firebase'</span></h4>
 			</div>
 		</div>
 		<div id = "divtimer">
@@ -49,9 +47,31 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		//show difference when correct
+		var myScore = 0;
+		$('#myscore').text(myScore);
+
 		 $('#enterAnswer').on('click' ,function() {
 		 	event.preventDefault();
-		 	alert($('#answerArea').val());
+
+		 	var answerAreaVal = $('#answerArea').val();
+		 	var answerHistory = $('#answerHistory');
+
+		 	var newAnswer = $('<p>').html(answerAreaVal)
+		 	answerHistory.prepend(newAnswer);
+
+
+		 	if (answerAreaVal.indexOf('square') != -1 && answerAreaVal.indexOf('blue') != -1){
+		 		var answerCorrect = $('<p>').html('You got it!');
+		 		answerHistory.prepend(answerCorrect);
+
+		 		myScore++;
+		 		$('#myscore').text(myScore);
+		 		
+		 	} else {
+		 		var answerIncorrect = $('<p>').html('WROOOOOOONNNG!');
+		 		answerHistory.prepend(answerIncorrect);
+		 	}
+
 		 	$('#answerArea').val("");
 		 });
 
