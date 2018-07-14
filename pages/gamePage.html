@@ -1,88 +1,107 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Play Area</title>
-
-	<link rel="stylesheet" type="text/css" href="../assets/css/bak-game.css">
+    <title>Play Area</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/bak-game.css">
 </head>
+
 <body>
-	<div id = "gamepage">
-		<div id ="title">
-			<h1>Play Area</h1>
-		</div>
+    <div id="gamepage">
+        <div id="title">
+            <h1>Play Area</h1>
+        </div>
+        <div id="scores">
+            <div id="playerscore">
+                <h4>Player Score: <span id="myscore"></span></h4>
+            </div>
+            <div id="divhighscore">
+                <h4>High Score <span id="spanhighscore">'firebase'</span></h4>
+            </div>
+        </div>
+        <div id="divtimer">
+            <div id="divstatusbar"> status bar....! </div>
+        </div>
+        <div id="divpictures">
+            <div id="divleftpic">
+                <object type="image/svg+xml"></object>
+            </div>
+            <div id="divrightpic">
+                <object type="image/svg+xml"></object>
+            </div>
+        </div>
+        <div id="divtextarea">
+            <form>
+                <input id="answerArea">
+                <button id="enterAnswer"></button>
+            </form>
+            <div id="answerHistory">
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    //keywords variables
+    var object;
+    var color;
+    //player score
+    var myScore = 0;
+    $('#myscore').text(myScore);
 
-		<div id="scores">
-			<div id ="playerscore">
-				<h4>Player Score: <span id="myscore"></span></h4>
-			</div>
-			<div id = "divhighscore">
-				<h4>High Score <span id="spanhighscore">'firebase'</span></h4>
-			</div>
-		</div>
-		<div id = "divtimer">
-			<div id ="divstatusbar"> status bar....! </div>
-		</div>
+    //diplay picture
+    function nextLevel() {
+        if (myScore == 0) {
+        	object = 'square';
+        	color = 'blue';
+            $('#divleftpic > object').attr('data', '../assets/images/round_1_a.svg');
 
+            $('#divrightpic > object').attr('data', '../assets/images/round_1_b.svg');
+        }
+        if (myScore == 1) {
+        	object = 'star';
+        	color = 'orange';
+            $('#divleftpic > object').attr('data', '../assets/images/round_1_2_a.svg');
+            $('#divrightpic > object').attr('data', '../assets/images/round_1_2_b.svg');
+        }
+        if (myScore == 2) {
+        	$('#gamepage').hide();
+        	$('#divscoreboard').show();
+        }
+    }
 
-		<div id = "divpictures">
-			<div id = "divrightpic">
-				<object data="../assets/images/round_1_a.svg" type="image/svg+xml"></object>
-			</div>
-			<div id = "divrleftpic">
-				<object data="../assets/images/round_1_b.svg" type="image/svg+xml"></object>
-			</div>
-		</div>
+    nextLevel();
 
-		<div id ="divtextarea">
-			<form>
-				<input id ="answerArea">
-				<button id="enterAnswer"></button>
-			</form>
-			<div id="answerHistory">
-				
-			</div>
-		</div>
+    //player input function
+    $('#enterAnswer').on('click', function() {
+        event.preventDefault();
 
-	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		
-		//player score
-		var myScore = 0;
-		$('#myscore').text(myScore);
+        var answerAreaVal = $('#answerArea').val();
+        var answerHistory = $('#answerHistory');
 
-		//player input function
-		 $('#enterAnswer').on('click' ,function() {
-		 	event.preventDefault();
+        var newAnswer = $('<p>').html(answerAreaVal)
+        answerHistory.prepend(newAnswer);
 
-		 	var answerAreaVal = $('#answerArea').val();
-		 	var answerHistory = $('#answerHistory');
+        //check words in answer
+        if (answerAreaVal.indexOf(object) != -1 && answerAreaVal.indexOf(color) != -1) {
+            //correct answer message
+            var answerCorrect = $('<p>').html('You got it!');
+            answerHistory.prepend(answerCorrect);
 
-		 	var newAnswer = $('<p>').html(answerAreaVal)
-		 	answerHistory.prepend(newAnswer);
+            //update score
+            myScore++;
+            $('#myscore').text(myScore);
 
-		 	//check words in answer
-		 	if (answerAreaVal.indexOf('square') != -1 && answerAreaVal.indexOf('blue') != -1){
-		 		//correct answer message
-		 		var answerCorrect = $('<p>').html('You got it!');
-		 		answerHistory.prepend(answerCorrect);
+            nextLevel();
+        } else {
+            //incorrect answer message
+            var answerIncorrect = $('<p>').html('WROOOOOOONNNG!');
+            answerHistory.prepend(answerIncorrect);
+        }
 
-		 		//update score
-		 		myScore++;
-		 		$('#myscore').text(myScore);
-		 		
-		 	} else {
-		 		//incorrect answer message
-		 		var answerIncorrect = $('<p>').html('WROOOOOOONNNG!');
-		 		answerHistory.prepend(answerIncorrect);
-		 	}
-
-		 	//clearing input value in answer area
-		 	$('#answerArea').val("");
-		 });
-
-
-	</script>
-
+        //clearing input value in answer area
+        $('#answerArea').val("");
+    });
+    </script>
 </body>
+
 </html>
