@@ -2,3 +2,7 @@ object {
 	width: 200px;
 	border: 1px solid black;
 }
+
+#enterAnswer {
+	display: none;
+}

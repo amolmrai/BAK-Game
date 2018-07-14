@@ -36,13 +36,24 @@
 		</div>
 
 		<div id ="divtextarea">
-			<textarea id ="textarea"> Please enter your answer.. here !</textarea>
+			<form>
+				<input id ="answerArea">
+				<button id="enterAnswer"></button>
+			</form>
+			<div id="answerHistory">
+				
+			</div>
 		</div>
 
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		
+		//show difference when correct
+		 $('#enterAnswer').on('click' ,function() {
+		 	event.preventDefault();
+		 	alert($('#answerArea').val());
+		 	$('#answerArea').val("");
+		 });
 
 
 	</script>
