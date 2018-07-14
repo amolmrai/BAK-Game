@@ -46,10 +46,12 @@
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		//show difference when correct
+		
+		//player score
 		var myScore = 0;
 		$('#myscore').text(myScore);
 
+		//player input function
 		 $('#enterAnswer').on('click' ,function() {
 		 	event.preventDefault();
 
@@ -59,19 +61,23 @@
 		 	var newAnswer = $('<p>').html(answerAreaVal)
 		 	answerHistory.prepend(newAnswer);
 
-
+		 	//check words in answer
 		 	if (answerAreaVal.indexOf('square') != -1 && answerAreaVal.indexOf('blue') != -1){
+		 		//correct answer message
 		 		var answerCorrect = $('<p>').html('You got it!');
 		 		answerHistory.prepend(answerCorrect);
 
+		 		//update score
 		 		myScore++;
 		 		$('#myscore').text(myScore);
 		 		
 		 	} else {
+		 		//incorrect answer message
 		 		var answerIncorrect = $('<p>').html('WROOOOOOONNNG!');
 		 		answerHistory.prepend(answerIncorrect);
 		 	}
 
+		 	//clearing input value in answer area
 		 	$('#answerArea').val("");
 		 });
 
