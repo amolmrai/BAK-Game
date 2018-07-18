@@ -59,7 +59,6 @@
          	});
 
     		$('#divlname').empty();
-         	
 
          	dataRef.ref().orderByChild("Scores").limitToLast(5).on('child_added',function(snapshot){
     		console.log(snapshot.val().name);

@@ -5,6 +5,12 @@
     <title>BAK Game</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bak-game.css">
+    <style type="text/css">
+        #example p {
+            line-height: 0;
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,8 +31,13 @@
                 <p> - Be as specific as you can. "Object" and "Difference" required. ("Square" is "blue")
                 </p>
             </div>
-            <div id="expample">
-                <iframe src=""></iframe>
+            <div id="example">
+                <!-- <iframe src=""> -->
+                     <p>6666666666</p>
+                     <p>6666666666</p>
+                     <p>6666696666</p>
+                     <p>6666666666</p>
+                <!-- </iframe> -->
             </div>
         </div>
         <div>
@@ -59,10 +70,7 @@
             </div>
         </div>
         <div id="divtextarea">
-            <form>
-                <input id="answerArea">
-                <button id="enterAnswer"></button>
-            </form>
+                <button id="enterAnswer">Next</button>
             <div id="answerHistory">
             </div>
         </div>
@@ -79,7 +87,7 @@
                 <span id="spanmyscore"></span>
             </div>
             <div id="diventername">
-                <input type="text" id="entername" />
+                <input type="text" id="entername">
             </div>
         </div>
         <div id="divleaderboard">
@@ -118,7 +126,12 @@
     $('#start').on('click', function() {
         $('#welcomepage').hide();
         $('#gamepage').show();
-    })
+    });
+
+    $('#enterAnswer').on('click', function() {
+        $('#gamepage').hide();
+        $('#divscoreboard').show();
+    });
 
     //gamepage functions
     //keywords variables
@@ -126,63 +139,13 @@
     var color;
     //player score
     var myScore = 0;
-    $('#myscore').text(myScore);
+    // $('#myscore').text(myScore);
 
     //diplay picture
-    function nextLevel() {
-
-        if (myScore == 0) {
-            object = 'square';
-            color = 'blue';
-            $('#divleftpic > object').attr('data', 'assets/images/round_1_a.svg');
-
-            $('#divrightpic > object').attr('data', 'assets/images/round_1_b.svg');
-        }
-        if (myScore == 1) {
-            object = 'star';
-            color = 'orange';
-            $('#divleftpic > object').attr('data', 'assets/images/round_1_2_a.svg');
-            $('#divrightpic > object').attr('data', 'assets/images/round_1_2_b.svg');
-        }
-        if (myScore == 2) {
-            $('#gamepage').hide();
-            $('#divscoreboard').show();
-        }
-        $('#answerHistory').empty();
-    }
-
-    nextLevel();
+   
 
     //player input function
-    $('#enterAnswer').on('click', function() {
-        event.preventDefault();
-
-        var answerAreaVal = $('#answerArea').val();
-        var answerHistory = $('#answerHistory');
-
-        var newAnswer = $('<p>').html(answerAreaVal)
-        answerHistory.prepend(newAnswer);
-
-        //check words in answer
-        if (answerAreaVal.indexOf(object) != -1 && answerAreaVal.indexOf(color) != -1) {
-            //correct answer message
-            var answerCorrect = $('<p>').html('You got it!');
-            answerHistory.prepend(answerCorrect);
-
-            //update score
-            myScore++;
-            $('#myscore').text(myScore);
-
-            nextLevel();
-        } else {
-            //incorrect answer message
-            var answerIncorrect = $('<p>').html('WROOOOOOONNNG!');
-            answerHistory.prepend(answerIncorrect);
-        }
-
-        //clearing input value in answer area
-        $('#answerArea').val("");
-    });
+   
     </script>
 </body>
 
