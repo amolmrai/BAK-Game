@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <!-- Welcome page  -->
     <div id="welcomepage">
         <div id="title">
             <h1>Spot the difference</h1>
@@ -24,6 +25,7 @@
         </div>
     </div>
 
+ <!-- Game  page  -->
     <div id="gamepage">
         <div id="title">
             <h1>Play Area</h1>
@@ -57,6 +59,8 @@
         </div>
     </div>
 
+ <!-- Result page  -->
+
     <div id="divscoreboard">
         <div id="title">
             <h1>Score board</h1>
@@ -74,8 +78,28 @@
             LEADER BAORD !
         </div>
     </div>
+
+    <!-- LINK TO FIREBASE GOES HERE -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- LINK TO JQUERY GOES HERE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDgbsEY5wVs8byaslFU2ZnvYxX1xm3wwjM",
+        authDomain: "bak-game.firebaseapp.com",
+        databaseURL: "https://bak-game.firebaseio.com",
+        projectId: "bak-game",
+        storageBucket: "bak-game.appspot.com",
+        messagingSenderId: "792992368200"
+      };
+
+        firebase.initializeApp(config);
+        var dataRef = firebase.database();
+        // Initial Values
+         var name = "";
+         var score = "";
+
     //welcomepage functions
 	    $('#gamepage').hide();
 	    $('#divscoreboard').hide();

@@ -15,7 +15,8 @@
 				<span id="spanmyscore"></span>
 			</div>
 			<div id = "diventername">
-				<input type = "text" id="entername" />
+				<input type = "text" id="playerName" />
+				<button id="btn_score">GO..!</button>
 			</div>
 		</div>
 
@@ -23,8 +24,36 @@
 			LEADER BAORD ! 
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript">
+	 <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- LINK TO JQUERY GOES HERE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDgbsEY5wVs8byaslFU2ZnvYxX1xm3wwjM",
+        authDomain: "bak-game.firebaseapp.com",
+        databaseURL: "https://bak-game.firebaseio.com",
+        projectId: "bak-game",
+        storageBucket: "bak-game.appspot.com",
+        messagingSenderId: "792992368200"
+      };
+
+        firebase.initializeApp(config);
+        var dataRef = firebase.database();
+        // Initial Values
+         var name;
+         var score = 10;
+
+         $("#btn_score").on("click", function (){
+         	event.preventDefault();
+         	name = $("#playerName").val();
+         	dataRef.ref().push({
+         	name:name,	
+         	Scores: score
+         	});
+         });
+
+
 		
 
 
