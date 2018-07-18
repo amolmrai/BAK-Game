@@ -16,6 +16,7 @@
 			</div>
 			<div id = "diventername">
 				<input type = "text" id="playerName" />
+				<input type = "text" id="playerscore" />
 				<button id="btn_score">GO..!</button>
 			</div>
 		</div>
@@ -23,6 +24,10 @@
 		<div id = "divleaderboard">
 			LEADER BAORD ! 
 		</div>
+		<div id = "divlname">
+			
+		</div>
+
 	</div>
 	 <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <!-- LINK TO JQUERY GOES HERE -->
@@ -42,19 +47,35 @@
         var dataRef = firebase.database();
         // Initial Values
          var name;
-         var score = 10;
+         var score;
 
          $("#btn_score").on("click", function (){
          	event.preventDefault();
          	name = $("#playerName").val();
+         	score = parseInt($("#playerscore").val());
          	dataRef.ref().push({
          	name:name,	
          	Scores: score
          	});
+
+    		$('#divlname').empty();
+         	
+
+         	dataRef.ref().orderByChild("Scores").limitToLast(5).on('child_added',function(snapshot){
+    		console.log(snapshot.val().name);
+    		console.log(snapshot.val().Scores);
+    		// if(snapshot.val().Scores > score){
+	    		var newName = $('<p>').text(snapshot.val().name);
+	    		var newP = $('<p>').text(snapshot.val().Scores);
+	    		newName.append(newP)
+	    		$("#divlname").prepend(newName);
+	    	// }
+    		// $("#divleaderboard").append(newP);
+
+   		 });
          });
 
-
-		
+         
 
 
 	</script>
