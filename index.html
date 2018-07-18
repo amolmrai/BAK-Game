@@ -3,6 +3,7 @@
 
 <head>
     <title>BAK Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bak-game.css">
 </head>
 
@@ -12,8 +13,16 @@
             <h1>Spot the difference</h1>
         </div>
         <div id="mainIntrudction">
-            <div id="indstruction">
+            <div id="instruction">
                 <h2>Instruction</h2>
+                <p id="instructiontext">
+                    - Find the differences in each level
+                </p>
+                <p>
+                    - In type area, type out the differences
+                </p>
+                <p> - Be as specific as you can. "Object" and "Difference" required. ("Square" is "blue")
+                </p>
             </div>
             <div id="expample">
                 <iframe src=""></iframe>
@@ -23,7 +32,6 @@
             <button id="start">START</button>
         </div>
     </div>
-
     <div id="gamepage">
         <div id="title">
             <h1>Play Area</h1>
@@ -56,7 +64,6 @@
             </div>
         </div>
     </div>
-
     <div id="divscoreboard">
         <div id="title">
             <h1>Score board</h1>
@@ -75,80 +82,82 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript">
     //welcomepage functions
-	    $('#gamepage').hide();
-	    $('#divscoreboard').hide();
+    $('#gamepage').hide();
+    $('#divscoreboard').hide();
 
-	    //Start Button - Start Game
-	    $('#start').on('click', function() {
-	        $('#welcomepage').hide();
-	        $('#gamepage').show();
-	    })
+    //Start Button - Start Game
+    $('#start').on('click', function() {
+        $('#welcomepage').hide();
+        $('#gamepage').show();
+    })
 
     //gamepage functions
-	    //keywords variables
-	    var object;
-	    var color;
-	    //player score
-	    var myScore = 0;
-	    $('#myscore').text(myScore);
+    //keywords variables
+    var object;
+    var color;
+    //player score
+    var myScore = 0;
+    $('#myscore').text(myScore);
 
-	    //diplay picture
-	    function nextLevel() {
+    //diplay picture
+    function nextLevel() {
 
-	        if (myScore == 0) {
-	            object = 'square';
-	            color = 'blue';
-	            $('#divleftpic > object').attr('data', 'assets/images/round_1_a.svg');
+        if (myScore == 0) {
+            object = 'square';
+            color = 'blue';
+            $('#divleftpic > object').attr('data', 'assets/images/round_1_a.svg');
 
-	            $('#divrightpic > object').attr('data', 'assets/images/round_1_b.svg');
-	        }
-	        if (myScore == 1) {
-	            object = 'star';
-	            color = 'orange';
-	            $('#divleftpic > object').attr('data', 'assets/images/round_1_2_a.svg');
-	            $('#divrightpic > object').attr('data', 'assets/images/round_1_2_b.svg');
-	        }
-	        if (myScore == 2) {
-	            $('#gamepage').hide();
-	            $('#divscoreboard').show();
-	        }
-	        $('#answerHistory').empty();
-	    }
+            $('#divrightpic > object').attr('data', 'assets/images/round_1_b.svg');
+        }
+        if (myScore == 1) {
+            object = 'star';
+            color = 'orange';
+            $('#divleftpic > object').attr('data', 'assets/images/round_1_2_a.svg');
+            $('#divrightpic > object').attr('data', 'assets/images/round_1_2_b.svg');
+        }
+        if (myScore == 2) {
+            $('#gamepage').hide();
+            $('#divscoreboard').show();
+        }
+        $('#answerHistory').empty();
+    }
 
-	    nextLevel();
+    nextLevel();
 
-	    //player input function
-	    $('#enterAnswer').on('click', function() {
-	        event.preventDefault();
+    //player input function
+    $('#enterAnswer').on('click', function() {
+        event.preventDefault();
 
-	        var answerAreaVal = $('#answerArea').val();
-	        var answerHistory = $('#answerHistory');
+        var answerAreaVal = $('#answerArea').val();
+        var answerHistory = $('#answerHistory');
 
-	        var newAnswer = $('<p>').html(answerAreaVal)
-	        answerHistory.prepend(newAnswer);
+        var newAnswer = $('<p>').html(answerAreaVal)
+        answerHistory.prepend(newAnswer);
 
-	        //check words in answer
-	        if (answerAreaVal.indexOf(object) != -1 && answerAreaVal.indexOf(color) != -1) {
-	            //correct answer message
-	            var answerCorrect = $('<p>').html('You got it!');
-	            answerHistory.prepend(answerCorrect);
+        //check words in answer
+        if (answerAreaVal.indexOf(object) != -1 && answerAreaVal.indexOf(color) != -1) {
+            //correct answer message
+            var answerCorrect = $('<p>').html('You got it!');
+            answerHistory.prepend(answerCorrect);
 
-	            //update score
-	            myScore++;
-	            $('#myscore').text(myScore);
+            //update score
+            myScore++;
+            $('#myscore').text(myScore);
 
-	            nextLevel();
-	        } else {
-	            //incorrect answer message
-	            var answerIncorrect = $('<p>').html('WROOOOOOONNNG!');
-	            answerHistory.prepend(answerIncorrect);
-	        }
+            nextLevel();
+        } else {
+            //incorrect answer message
+            var answerIncorrect = $('<p>').html('WROOOOOOONNNG!');
+            answerHistory.prepend(answerIncorrect);
+        }
 
-	        //clearing input value in answer area
-	        $('#answerArea').val("");
-	    });
+        //clearing input value in answer area
+        $('#answerArea').val("");
+    });
     </script>
 </body>
 
