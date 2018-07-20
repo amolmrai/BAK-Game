@@ -6,10 +6,35 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bak-game.css">
     <style type="text/css">
-        #example p {
-            line-height: 0;
-            font-size: 20px;
+    #example p {
+        line-height: 0;
+        font-size: 20px;
+    }
+
+    .bartimer {
+        width: 1000px;
+        height: 80px;
+        background-color: green;
+        animation: bartimer 10000ms 1;
+    }
+
+    @keyframes bartimer {
+        0% {
+            width: 1000px;
+            height: 80px;
         }
+        33% {
+        	background-color: yellow;
+        }
+        66% {
+        	background-color: red;
+        }
+        100% {
+            width: 0px;
+            height: 80px;
+            background-color: red;
+        }
+    }
     </style>
 </head>
 
@@ -32,21 +57,18 @@
                 </p>
             </div>
             <div id="example">
-                <!-- <iframe src=""> -->
-                     <p>6666666666</p>
-                     <p>6666666666</p>
-                     <p>6666696666</p>
-                     <p>6666666666</p>
-                <!-- </iframe> -->
             </div>
+        </div>
+        <div id="choosedifficulty">
+            <span><button id="easy">Easy</button></span>
+            <span><button id="hard">Hard</button></span>
         </div>
         <div>
             <button id="start">START</button>
         </div>
     </div>
-
- <!-- Game  page  -->
-    <div id="gamepage">
+    <!-- Game  page  -->
+    <div id="gamepage" data-difficulty="">
         <div id="title">
             <h1>Play Area</h1>
         </div>
@@ -59,6 +81,8 @@
             </div>
         </div>
         <div id="divtimer">
+            <div id="timeremaining"><span id="minutes"></span><span id="minutesright"></span>:<span id="seconds"></span><span id="secondsright"></span></div>
+            <div></div>
             <div id="divstatusbar"> status bar....! </div>
         </div>
         <div id="divpictures">
@@ -70,13 +94,12 @@
             </div>
         </div>
         <div id="divtextarea">
-                <button id="enterAnswer">Next</button>
+            <button id="enterAnswer">Next</button>
             <div id="answerHistory">
             </div>
         </div>
     </div>
-
- <!-- Result page  -->
+    <!-- Result page  -->
     <div id="divscoreboard">
         <div id="title">
             <h1>Score board</h1>
@@ -94,7 +117,6 @@
             LEADER BAORD !
         </div>
     </div>
-
     <!-- LINK TO FIREBASE GOES HERE -->
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <!-- LINK TO JQUERY GOES HERE -->
@@ -102,30 +124,98 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript">
-      // Initialize Firebase
-      var config = {
+    // Initialize Firebase
+    var config = {
         apiKey: "AIzaSyDgbsEY5wVs8byaslFU2ZnvYxX1xm3wwjM",
         authDomain: "bak-game.firebaseapp.com",
         databaseURL: "https://bak-game.firebaseio.com",
         projectId: "bak-game",
         storageBucket: "bak-game.appspot.com",
         messagingSenderId: "792992368200"
-      };
+    };
 
-        firebase.initializeApp(config);
-        var dataRef = firebase.database();
-        // Initial Values
-         var name = "";
-         var score = "";
+    firebase.initializeApp(config);
+    var dataRef = firebase.database();
+    // Initial Values
+    var name = "";
+    var score = "";
 
     //welcomepage functions
     $('#gamepage').hide();
     $('#divscoreboard').hide();
 
+    // Easy Mode
+    $('#easy').on('click', function() {
+        $('#gamepage').attr('data-difficulty', 'easy');
+    });
+
+    // Hard Mode
+    $('#hard').on('click', function() {
+        $('#gamepage').attr('data-difficulty', 'hard');
+    });
+
+    // start timer
+    function startTimer() {
+        timeSecondsright = 9;
+        timeSeconds = 5;
+        timeMinutesright = 9;
+        timeMinutes = 1;
+        $('#secondsright').text(timeSecondsright);
+        $('#seconds').text(timeSeconds);
+        $('#minutes').text(timeMinutes);
+        $('#minutesright').text(timeMinutesright);
+
+        function firstNumber() {
+            timeSecondsright--;
+            $('#secondsright').text(timeSecondsright);
+            if (timeSecondsright == -1) {
+                timeSecondsright = 9;
+                $('#secondsright').text(timeSecondsright);
+                timeSeconds--;
+                $('#seconds').text(timeSeconds);
+            }
+            if (timeSeconds == -1) {
+                timeSeconds = 5;
+                $('#seconds').text(timeSeconds);
+                timeMinutesright--;
+                $('#minutesright').text(timeMinutesright);
+            }
+            if (timeMinutesright == -1) {
+                timeMinutesright = 9;
+                $('#minutesright').text(timeMinutesright);
+                timeMinutes--;
+                $('#minutes').text(timeMinutes);
+            }
+            if (timeMinutes == -1) {
+                alert('Out of time');
+            }
+        }
+        setInterval(firstNumber, 1000);
+    }
+
     //Start Button - Start Game
     $('#start').on('click', function() {
-        $('#welcomepage').hide();
-        $('#gamepage').show();
+        var difficulty = $('#gamepage').attr('data-difficulty');
+        if (difficulty.length > 1) {
+            $('#welcomepage').hide();
+            $('#gamepage').show();
+            $('#divtimer div:nth-child(2)').addClass('bartimer');
+
+            // set timer
+            var timeSeconds = 0;
+            var timeSecondsright = 0;
+            var timeMinutesright = 0;
+            var timeMinutes = 2;
+            $('#minutes').text(timeMinutes);
+            $('#minutesright').text(timeMinutesright);
+            $('#seconds').text(timeSeconds);
+            $('#secondsright').text(timeSecondsright);
+
+            // call timer function
+            setTimeout(startTimer, 1000);
+        } else {
+            alert('Choose Difficulty');
+        }
     });
 
     $('#enterAnswer').on('click', function() {
@@ -142,10 +232,9 @@
     // $('#myscore').text(myScore);
 
     //diplay picture
-   
+
 
     //player input function
-   
     </script>
 </body>
 
