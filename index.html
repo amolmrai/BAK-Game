@@ -15,7 +15,7 @@
         width: 1000px;
         height: 80px;
         background-color: green;
-        animation: bartimer 10000ms 1;
+        animation: bartimer 300000ms 1;
     }
 
     @keyframes bartimer {
@@ -81,7 +81,7 @@
             </div>
         </div>
         <div id="divtimer">
-            <div id="timeremaining"><span id="minutes"></span><span id="minutesright"></span>:<span id="seconds"></span><span id="secondsright"></span></div>
+            <div id="timeremaining"><span id="minutes"></span>:<span id="seconds"></span><span id="secondsright"></span></div>
             <div></div>
             <div id="divstatusbar"> status bar....! </div>
         </div>
@@ -154,18 +154,11 @@
         $('#gamepage').attr('data-difficulty', 'hard');
     });
 
+    var timeSeconds;
+    var timeSecondsright;
+    var timeMinutes;
     // start timer
-    function startTimer() {
-        timeSecondsright = 9;
-        timeSeconds = 5;
-        timeMinutesright = 9;
-        timeMinutes = 1;
-        $('#secondsright').text(timeSecondsright);
-        $('#seconds').text(timeSeconds);
-        $('#minutes').text(timeMinutes);
-        $('#minutesright').text(timeMinutesright);
-
-        function firstNumber() {
+    function firstNumber() {
             timeSecondsright--;
             $('#secondsright').text(timeSecondsright);
             if (timeSecondsright == -1) {
@@ -177,12 +170,6 @@
             if (timeSeconds == -1) {
                 timeSeconds = 5;
                 $('#seconds').text(timeSeconds);
-                timeMinutesright--;
-                $('#minutesright').text(timeMinutesright);
-            }
-            if (timeMinutesright == -1) {
-                timeMinutesright = 9;
-                $('#minutesright').text(timeMinutesright);
                 timeMinutes--;
                 $('#minutes').text(timeMinutes);
             }
@@ -190,6 +177,14 @@
                 alert('Out of time');
             }
         }
+    function startTimer() {
+        timeSecondsright = 9;
+        timeSeconds = 5;
+        timeMinutes = 4;
+        $('#secondsright').text(timeSecondsright);
+        $('#seconds').text(timeSeconds);
+        $('#minutes').text(timeMinutes);
+        
         setInterval(firstNumber, 1000);
     }
 
@@ -202,12 +197,10 @@
             $('#divtimer div:nth-child(2)').addClass('bartimer');
 
             // set timer
-            var timeSeconds = 0;
-            var timeSecondsright = 0;
-            var timeMinutesright = 0;
-            var timeMinutes = 2;
+            timeSeconds = 0;
+            timeSecondsright = 0;
+            timeMinutes = 5;
             $('#minutes').text(timeMinutes);
-            $('#minutesright').text(timeMinutesright);
             $('#seconds').text(timeSeconds);
             $('#secondsright').text(timeSecondsright);
 
