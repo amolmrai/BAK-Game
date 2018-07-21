@@ -5,99 +5,94 @@
     <title>BAK Game</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bak-game.css">
-    <style type="text/css">
-    #example p {
-        line-height: 0;
-        font-size: 20px;
-    }
-
-    .bartimer {
-        width: 1000px;
-        height: 80px;
-        background-color: green;
-        animation: bartimer 300000ms 1;
-    }
-
-    @keyframes bartimer {
-        0% {
-            width: 1000px;
-            height: 80px;
-        }
-        33% {
-        	background-color: yellow;
-        }
-        66% {
-        	background-color: red;
-        }
-        100% {
-            width: 0px;
-            height: 80px;
-            background-color: red;
-        }
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="assets/css/bak-game.css">
 </head>
 
 <body>
+    <div id="floatingLetters">
+        <div id="floatingL" class="background">L</div>
+        <div id="floatingX" class="background">X</div>
+        <div id="floatingE" class="background">E</div>
+        <div id="floatingP" class="background">P</div>
+        <div id="floatingZ" class="background">Z</div>
+    </div>
     <!-- Welcome page  -->
     <div id="welcomepage">
         <div id="title">
-            <h1>Spot the difference</h1>
+            <h1>Eye<img src="assets/images/eye.svg">Exam</h1>
         </div>
-        <div id="mainIntrudction">
-            <div id="instruction">
-                <h2>Instruction</h2>
-                <p id="instructiontext">
-                    - Find the differences in each level
-                </p>
-                <p>
-                    - In type area, type out the differences
-                </p>
-                <p> - Be as specific as you can. "Object" and "Difference" required. ("Square" is "blue")
-                </p>
+        <div id="mainIntroduction">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div id="instruction">
+                            <h2>Instruction</h2>
+                            <p class="instructiontext">
+                                Find the different character in each level.</br>
+                                You have 5 minutes to beat all 5 levels.
+                            </p>
+                            <p id="difficultydescription">
+                            </p>
+                            <div id="choosedifficulty">
+                                <span><button id="easy">Easy</button></span>
+                                <span><button id="hard">Hard</button></span>
+                            </div>
+                            <div id="startbutton">
+                                <button id="start">START</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div id="poster">
+                            <div>E</div><span>1</span>
+                            <div>Y E</div><span>2</span>
+                            <div>E X A M</div><span>3</span>
+                            <div>G A M E</div><span>4</span>
+                            <div>B Y</div><span>5</span>
+                            <div>A M O L</div><span>6</span>
+                            <div>K E V I N</div><span>7</span>
+                            <div>B R Y A N T</div><span>8</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="example">
-            </div>
-        </div>
-        <div id="choosedifficulty">
-            <span><button id="easy">Easy</button></span>
-            <span><button id="hard">Hard</button></span>
-        </div>
-        <div>
-            <button id="start">START</button>
         </div>
     </div>
     <!-- Game  page  -->
     <div id="gamepage" data-difficulty="">
         <div id="title">
-            <h1>Play Area</h1>
+            <h3>Level <span id="level">1</span></h3>
         </div>
         <div id="scores">
-            <div id="playerscore">
-                <h4>Player Score: <span id="myscore"></span></h4>
-            </div>
-            <div id="divhighscore">
-                <h4>High Score <span id="spanhighscore">'firebase'</span></h4>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div id="playerscore">
+                            <h4>Player Score: <span id="myscore">0</span></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div id="timeremaining">Time Remaing:
+                            <span id="minutes"></span>:<span id="seconds"></span><span id="secondsright"></span></div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div id="divhighscore">
+                            <h4>High Score: <span id="spanhighscore"></span></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg">
+                        <div id="divtimer">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="divtimer">
-            <div id="timeremaining"><span id="minutes"></span>:<span id="seconds"></span><span id="secondsright"></span></div>
-            <div></div>
-            <div id="divstatusbar"> status bar....! </div>
-        </div>
-        <div id="divpictures">
-            <div id="divleftpic">
-                <object type="image/svg+xml"></object>
-            </div>
-            <div id="divrightpic">
-                <object type="image/svg+xml"></object>
-            </div>
+        <div id="playarea">
         </div>
         <div id="divtextarea">
-            <button id="enterAnswer">Next</button>
-             <span><button id="pauseTimer">PauseTimer</button></span>
-             <span><button id="continueTimer">Continue</button></span>
-            <div id="answerHistory"></div>
         </div>
     </div>
     <!-- Result page  -->
@@ -111,11 +106,15 @@
                 <span id="spanmyscore"></span>
             </div>
             <div id="diventername">
-                <input type="text" id="entername">
+                <input type="text" id="playerName" />
+                <input type="text" id="playerscore" />
+                <button id="btn_score">GO..!</button>
             </div>
         </div>
         <div id="divleaderboard">
             LEADER BAORD !
+        </div>
+        <div id="divlname">
         </div>
     </div>
     <!-- LINK TO FIREBASE GOES HERE -->
@@ -124,123 +123,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyDgbsEY5wVs8byaslFU2ZnvYxX1xm3wwjM",
-        authDomain: "bak-game.firebaseapp.com",
-        databaseURL: "https://bak-game.firebaseio.com",
-        projectId: "bak-game",
-        storageBucket: "bak-game.appspot.com",
-        messagingSenderId: "792992368200"
-    };
+    <script type="text/javascript" src="assets/js/bak-game-startpage.js"></script>
+    <script type="text/javascript" src="assets/js/bak-game-gamepage.js"></script>
 
-    firebase.initializeApp(config);
-    var dataRef = firebase.database();
-    // Initial Values
-    var name = "";
-    var score = "";
-
-    //welcomepage functions
-    $('#gamepage').hide();
-    $('#divscoreboard').hide();
-
-    // Easy Mode
-    $('#easy').on('click', function() {
-        $('#gamepage').attr('data-difficulty', 'easy');
-    });
-
-    // Hard Mode
-    $('#hard').on('click', function() {
-        $('#gamepage').attr('data-difficulty', 'hard');
-    });
-
-    var timeSeconds = 5;
-    var timeSecondsright = 9;
-    var timeMinutes =4;
-    var myVar ;
-    // start timer
-    function firstNumber() {
-            timeSecondsright--;
-            $('#secondsright').text(timeSecondsright);
-            if (timeSecondsright == -1) {
-                timeSecondsright = 9;
-                $('#secondsright').text(timeSecondsright);
-                timeSeconds--;
-                $('#seconds').text(timeSeconds);
-            }
-            if (timeSeconds == -1) {
-                timeSeconds = 5;
-                $('#seconds').text(timeSeconds);
-                timeMinutes--;
-                $('#minutes').text(timeMinutes);
-            }
-            if (timeMinutes == -1) {
-                alert('Out of time');
-            }
-        }
-    function startTimer() {
-        //timeSecondsright = 9;
-        //timeSeconds = 5;
-        //timeMinutes = 4;
-        $('#secondsright').text(timeSecondsright);
-        $('#seconds').text(timeSeconds);
-        $('#minutes').text(timeMinutes);
-        
-         myVar=setInterval(firstNumber, 1000);
-    }
-
-    //Start Button - Start Game
-    $('#start').on('click', function() {
-        var difficulty = $('#gamepage').attr('data-difficulty');
-        if (difficulty.length > 1) {
-            $('#welcomepage').hide();
-            $('#gamepage').show();
-            $('#divtimer div:nth-child(2)').addClass('bartimer');
-
-            // set timer
-            timeSeconds = 0;
-            timeSecondsright = 0;
-            timeMinutes = 5;
-            $('#minutes').text(timeMinutes);
-            $('#seconds').text(timeSeconds);
-            $('#secondsright').text(timeSecondsright);
-
-            // call timer function
-            setTimeout(startTimer, 1000);
-        } else {
-            alert('Choose Difficulty');
-        }
-    });
-
-    $('#enterAnswer').on('click', function() {
-        $('#gamepage').hide();
-        $('#divscoreboard').show();
-    });
-
-    $('#pauseTimer').on('click',function(){
-        alert(myVar);
-        clearTimeout(myVar);
-    });
-
-    $('#continueTimer').on('click',function(){
-        // call timer function
-        setTimeout(startTimer, 1000);
-    });
-
-    //gamepage functions
-    //keywords variables
-    var object;
-    var color;
-    //player score
-    var myScore = 0;
-    // $('#myscore').text(myScore);
-
-    //diplay picture
-
-
-    //player input function
-    </script>
 </body>
 
 </html>
