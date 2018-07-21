@@ -95,8 +95,9 @@
         </div>
         <div id="divtextarea">
             <button id="enterAnswer">Next</button>
-            <div id="answerHistory">
-            </div>
+             <span><button id="pauseTimer">PauseTimer</button></span>
+             <span><button id="continueTimer">Continue</button></span>
+            <div id="answerHistory"></div>
         </div>
     </div>
     <!-- Result page  -->
@@ -154,9 +155,10 @@
         $('#gamepage').attr('data-difficulty', 'hard');
     });
 
-    var timeSeconds;
-    var timeSecondsright;
-    var timeMinutes;
+    var timeSeconds = 5;
+    var timeSecondsright = 9;
+    var timeMinutes =4;
+    var myVar ;
     // start timer
     function firstNumber() {
             timeSecondsright--;
@@ -178,14 +180,14 @@
             }
         }
     function startTimer() {
-        timeSecondsright = 9;
-        timeSeconds = 5;
-        timeMinutes = 4;
+        //timeSecondsright = 9;
+        //timeSeconds = 5;
+        //timeMinutes = 4;
         $('#secondsright').text(timeSecondsright);
         $('#seconds').text(timeSeconds);
         $('#minutes').text(timeMinutes);
         
-        setInterval(firstNumber, 1000);
+         myVar=setInterval(firstNumber, 1000);
     }
 
     //Start Button - Start Game
@@ -214,6 +216,16 @@
     $('#enterAnswer').on('click', function() {
         $('#gamepage').hide();
         $('#divscoreboard').show();
+    });
+
+    $('#pauseTimer').on('click',function(){
+        alert(myVar);
+        clearTimeout(myVar);
+    });
+
+    $('#continueTimer').on('click',function(){
+        // call timer function
+        setTimeout(startTimer, 1000);
     });
 
     //gamepage functions
