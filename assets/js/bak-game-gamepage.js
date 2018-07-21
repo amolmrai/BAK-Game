@@ -56,6 +56,7 @@
      if (timeMinutes == -1) {
          $('#gamepage').hide();
          $('#divscoreboard').show();
+         $('#finalscore').html(myScore)
      }
  }
 
