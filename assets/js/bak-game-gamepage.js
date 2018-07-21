@@ -67,6 +67,9 @@
      myVar = setInterval(firstNumber, 1000);
  }
 
+$(document).on('click', '#restartbutton', function() {
+    restart();
+})
 
 
  //Start Button - Start Game
