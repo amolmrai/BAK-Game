@@ -503,17 +503,29 @@
 	}
 
 
-    //gameplay style by difficulty
+   //gameplay style by difficulty
     function gameStyleDifficulty() {
-    	if ($('#gamepage').attr('data-difficulty') == "hard") {
+    	if ($('#gamepage').attr('data-difficulty') == "hard" && (level > 0 && level < 6)) {
     		$('#playarea').on('click' , function(e) {
     			if (e.target.className == "correctAnswer") {
 					console.log('on click correct')
 					onLevel();
 				} else {
-					console.log('wrong')
+					alert('wrong');
 				}
     		})
+    	} else if($('#gamepage').attr('data-difficulty') == "easy") {
+    		$(document).keydown(function(e) {
+    			var key = e.key;
+
+    			if (($('.correctAnswer').text().trim().toLowerCase() == key.toLowerCase()) && (level > 0 && level < 6)) {
+    				console.log('on key correct')
+					onLevel();
+    			} else if (level > 0 && level < 6) {
+    				alert('wrong');
+    			}
+
+    		});
     	}
     }
 
