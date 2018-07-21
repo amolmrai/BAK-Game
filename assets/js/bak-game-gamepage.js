@@ -116,7 +116,7 @@ function pause() {
     alert(myVar);
     clearTimeout(myVar);
     $('.bartimer').css('animation-play-state', 'paused');
-});
+};
 
 $('#pauseTimer').on('click', pause);
 
@@ -124,7 +124,7 @@ function resume() {
     // call timer function
     setTimeout(startTimer, 1000);
     $('.bartimer').css('animation-play-state', 'running');
-});
+};
 
 $('#continueTimer').on('click', resume);
 
