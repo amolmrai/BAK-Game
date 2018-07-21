@@ -94,7 +94,7 @@
          if (difficulty == "easy") {
              $('#divtextarea').html("Press the key of the character that's different to move onto the next level" + "<br>" + "You only have 1 guess");
          } else {
-             $('#divtextarea').html("Click on the character that's different to move onto the next level" + "<br>" + "You only have 1 guess");
+             $('#divtextarea').html("Click on the character that's different to move onto the next level");
          }
      } else {
          alert('Choose Difficulty');
@@ -156,6 +156,7 @@
      $('#floatingLetters').show();
      $('#divscoreboard').hide();
      $('#divtimer div').removeClass('bartimer');
+     pause();
      level = 0;
      timeSeconds = 0;
      timeSecondsright = 0;
@@ -165,18 +166,18 @@
      $('#secondsright').text(timeSecondsright);
  }
 
+ function correct() {
+    $('#correct').show();
+    $('#result').html("Correct! click 'ok' to move on to next level.");
+    pause();
+ }
 
- // function incorrect() {
- //     $('#inresult').html("Incorrect!");
- //     $('#incorrect').show();
- //     $(document).on('click', '#ok', function() {
- //         $('#incorrect').hide();
- //     });
- //     $(document).on('click', '#restart', function() {
- //     	restart();
- //     	$('#incorrect').hide();
- //     })
- // }
+
+ function incorrect() {
+     $('#incorrect').show();
+    $('#inresult').html("Incorrect!");
+    pause();
+ }
 
 
  
@@ -189,38 +190,30 @@
          if (e.target.className == "correctAnswer") {
              myScore += 50;
              $('#myscore').text(myScore);
-             // $('#result').html("Correct! Press ok to move onto the next level");
-             // $('#correct').show();
-             // $(document).on('click', '#ok', function() {
-             //     // $('#correct').hide();
-             // });
-             alert("Correct!");
-             onLevel();
+             
+             correct();
 
          } else {
-             // incorrect();
+             
 
          }
      }
  });
 
  $(document).keydown(function(e) {
-     if ($('#gamepage').attr('data-difficulty') == "easy") {
+     if ($('#gamepage').attr('data-difficulty') == "easy" && $('#gamepage').css('display') != 'none' && $('#correct').css('display') == 'none' && $('#incorrect').css('display') == 'none') {
          var key = e.key;
+         console.log(key)
+         
          if (($('.correctAnswer').text().trim().toLowerCase() == key.toLowerCase()) && (level > 0 && level < 6)) {
              myScore += 50;
              $('#myscore').text(myScore);
-             // $('#myscore').text(myScore);
-             // $('#result').html("Correct! Press ok to move onto the next level");
-             // $('#correct').show();
-             // $(document).on('click', '#ok', function() {
-             //     // $('#correct').hide();
-             // });
-             alert("Correct!");
-             onLevel();
+             
+             correct();
+             
 
-         } else if (level > 0 && level < 6) {
-             alert("Incorrect");
+         } else if (key != 'Enter' && key != 'Meta' && key != 'Alt' && key != 'Control' && key != 'Shift' && key != 'Tab' && key != ' ') {
+             incorrect();
          }
      }
  });
@@ -228,7 +221,16 @@
 
 
  $(document).on('click', '#ok', function() {
+    onLevel();
+    $('#correct').hide();
+    resume();
+ });
 
+ $(document).on('click', '#restart', function() {
+    $('#incorrect').hide();
+    $('#gamepage').hide();
+    $('#finalscore').text(myScore);
+    $('#divscoreboard').show();
  })
 
  // Levels
