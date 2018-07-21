@@ -93,9 +93,9 @@
          // call timer function
          setTimeout(startTimer, 1000);
          if (difficulty == "easy") {
-             $('#divtextarea').html("Press the key of the character that's different to move onto the next level" + "<br>" + "You only have 1 guess");
+             $('#divtextarea').html("Press the key of the character that's different to move onto the next level" + "<br>" + "You only have 1 guess for each level");
          } else {
-             $('#divtextarea').html("Click on the character that's different to move onto the next level" + "<br>" + "You only have 1 guess");
+             $('#divtextarea').html("Click on the character that's different to move onto the next level" + "<br>" + "You only have 1 guess for each level");
          }
      } else {
          alert('Choose Difficulty');
