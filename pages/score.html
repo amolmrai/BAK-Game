@@ -16,9 +16,11 @@
                 <span id="spanmyscore"></span>
             </div>
             <div id="diventername">
+                <form>
                 <input type="text" id="playerName" />
                 <input type="text" id="playerscore" />
                 <button id="btn_score">GO..!</button>
+                </form>
             </div>
         </div>
         <div id="divleaderboard">
@@ -47,7 +49,14 @@
     var name;
     var score;
 
-    $("#btn_score").on("click", function() {
+    dataRef.ref().orderByChild("Scores").limitToLast(5).on('child_added', function(snapshot) {
+            var newName = $('<p>').text(snapshot.val().name);
+            var newP = $('<p>').text(snapshot.val().Scores);
+            newName.append(newP)
+            $("#divlname").prepend(newName);
+        });
+
+    $(document).on("click", "#btn_score", function() {
         event.preventDefault();
         name = $("#playerName").val();
         score = parseInt($("#playerscore").val());
@@ -59,16 +68,10 @@
         $('#divlname').empty();
 
         dataRef.ref().orderByChild("Scores").limitToLast(5).on('child_added', function(snapshot) {
-            console.log(snapshot.val().name);
-            console.log(snapshot.val().Scores);
-            // if(snapshot.val().Scores > score){
             var newName = $('<p>').text(snapshot.val().name);
             var newP = $('<p>').text(snapshot.val().Scores);
             newName.append(newP)
             $("#divlname").prepend(newName);
-            // }
-            // $("#divleaderboard").append(newP);
-
         });
     });
     </script>
