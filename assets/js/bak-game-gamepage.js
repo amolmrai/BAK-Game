@@ -35,7 +35,7 @@
 
  var timeSeconds = 5;
  var timeSecondsright = 9;
- var timeMinutes = 4;
+ var timeMinutes = 2;
  var myVar;
  // start timer
  function firstNumber() {
@@ -87,7 +87,7 @@ $(document).on('click', '#restartbutton', function() {
          // set timer
          timeSeconds = 0;
          timeSecondsright = 0;
-         timeMinutes = 5;
+         timeMinutes = 3;
          $('#minutes').text(timeMinutes);
          $('#seconds').text(timeSeconds);
          $('#secondsright').text(timeSecondsright);
@@ -147,6 +147,7 @@ $(document).on('click', '#restartbutton', function() {
          $('#divscoreboard').show();
          $('#finalscore').text(myScore);
          $('#floatingLetters').show();
+         calculateUserScore();
      } else {
          lvlPicker();
      }
@@ -163,10 +164,11 @@ $(document).on('click', '#restartbutton', function() {
      level = 0;
      timeSeconds = 0;
      timeSecondsright = 0;
-     timeMinutes = 5;
+     timeMinutes = 3;
      $('#minutes').text(timeMinutes);
      $('#seconds').text(timeSeconds);
      $('#secondsright').text(timeSecondsright);
+     myScore = 0;
  }
 
  function correct() {
@@ -766,29 +768,30 @@ $(document).on('click', '#restartbutton', function() {
      }
  }
 
- // function calculateUserScore(totalScore) {
- //     var localTimeMinutes = timeMinutes;
- //     if (totalScore != 0) {
- //         if (timeSeconds >= 5) {
- //             totalScore = totalScore + (localTimeMinutes + 1);
- //         } else {
- //             totalScore = totalScore + localTimeMinutes;
- //         }
- //     }
- //     return totalScore;
- // }
+ var localTimeMinutes;
+var totalScore;
+var finalScore;
 
- // function insetScroeInToDB() {
- //     event.preventDefault();
- //     var sc = calculateUserScore(totalScore);
- //     name = $("#playerName").val();
- //     finalScore = $("#finalscore").val();
- //     score = parseInt(sc);
- //     dataRef.ref().push({
- //         name: name,
- //         Scores: finalScore
- //     })
- // }
+function calculateUserScore() {
+
+    localTimeMinutes = timeMinutes +  myScore;
+    if (timeSeconds >= 5) {
+        totalScore = localTimeMinutes + 1;
+    }
+
+    $('#finalscore').html(totalScore);
+    
+}
+
+function insetScoreInToDB() {
+    event.preventDefault();
+    calculateUserScore();
+    name = $("#playerName").val();
+    dataRef.ref().push({
+        name: name,
+        Scores: finalScore
+    })
+}
 
 
  // Initial Values
